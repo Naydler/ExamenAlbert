@@ -1,0 +1,34 @@
+<!--Afegim l'espai de noms per thymeleaf extras spring security-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Plantilla</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <!-- Definim la capçalera que reutilitzarem en les altress pàgines que s'identificarà
+             com un fragment de nom "capcalera". El contingut és el de la variable plantilla.capcalera.titol
+             definida en el fitxer messages.properties. Aquest contingut el visualitzem
+             mitjançant la notació th:text="#{plantilla.capcalera.titol} que trobem dins
+             l'etiqueta de l'element
+        -->
+        <header th:fragment="capcalera">
+            <h1 th:text="#{plantilla.capcalera.titol}"/>
+        </header>
+
+        <!-- Definim el peu que reutilitzarem en les altres pàgines que s'identificarà
+             com un fragment de nom "peu". El contingut és el de la variable plantilla.peu
+             definida en el fitxer messages.properties. Aquest contingut el visualitzem
+             mitjançant la notació [[#{plantilla.peu}]], ja que és el contingut d'un element-->
+        <footer th:fragment="peu">
+            <div>[[#{plantilla.peu}]]</div>
+
+            <!--formulari per fer logout. El recurs (action) serà l'URL logout que està implicita en Spring Security-->
+            <form method="POST" th:action="@{/logout}">                
+                <!-- Botó per sortir de l'aplicació-->
+                <p><input type="submit" name="logout" value="Sortir"/></p> 
+            </form>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,20 @@
+CREATE TABLE `veterinari`.`rols` (
+  `id_rol` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(45) DEFAULT NULL,
+  `id_usuari` int DEFAULT NULL,
+  PRIMARY KEY (`id_rol`),
+  KEY `fkRolUsuari_idx` (`id_usuari`),
+  CONSTRAINT `fkRolUsuari` FOREIGN KEY (`id_usuari`) REFERENCES `veterinari`.`usuaris` (`id_usuari`)
+);
+
+CREATE TABLE `veterinari`.`usuaris` (
+  `id_usuari` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NULL,
+  `password` VARCHAR(128) NULL,
+  PRIMARY KEY (`id_usuari`));
+
+INSERT INTO `veterinari`.`usuaris` (`username`, `password`) VALUES ('Paula', '123');
+INSERT INTO `veterinari`.`usuaris` (`username`, `password`) VALUES ('Wisky', '456');
+
+INSERT INTO `veterinari`.`rols` (`nom`, `id_usuari`) VALUES ('veterinari', '1');
+INSERT INTO `veterinari`.`rols` (`nom`, `id_usuari`) VALUES ('pacient', '2');

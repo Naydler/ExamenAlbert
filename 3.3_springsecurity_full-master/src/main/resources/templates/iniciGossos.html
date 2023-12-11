@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Enviar dades</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        
+        <!-- L'element th:replace de thymeleaf, és l'element que incrusta un fragment d'una plantilla en un document html.
+             A aquest element li assignem l'adreça on es troba la plantilla on trobarem el fragment a incrustar, en el nostre
+             cas layout/plantilla, i el nom del fragment de la plantilla que volem incrustar, en el nostre cas capcalera, 
+             separats per l'operador ::.
+        -->        
+        <header th:replace="~{layout/plantilla :: capcalera}" />
+        
+        <!--Comprovem que el rol de l'usuari és veterinari per mostrar l'element enllaç, si no
+            ho és no es mostrarà. Per fer això utilitzem l'element authorize de thymeleaf extra
+            Spring Security assignant-li com a valor la funcio hasRole a la qual li passarem 
+            com a paràmetre el nom del rol que volem comprovar precedit de ROLE_ -->
+        
+        <a th:href="@{/formulariGos}" th:text="#{gos.afegirGos}"/>
+        
+        
+        <h1>Gossos de la BBDD veterinari</h1>
+
+        <div th:if="${gossos!=null && !gossos.empty}">
+            
+            <!-- Mostrem en una taula les dades del gossos guardats en la BBDD veterinari -->
+            <table border="1">
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Edat</th>
+                    <th>Sexe</th>
+                    <th/>
+                    <th/>
+                </tr>
+                
+                <tr th:each="gos : ${gossos}"> 
+                    <td th:text="${gos.idgos}"></td>
+                    <td th:text="${gos.nom}"></td> 
+                    <td th:text="${gos.edat}"></td>
+                    <td th:text="${gos.sexe}"></td>
+                    <td><a th:href="@{/editar/}+${gos.idgos}" th:text="Editar"/></td>
+                    <td><a th:href="@{/eliminar/}+${gos.idgos}" th:text="Eliminar"/></td>
+                </tr>
+            </table>
+            
+        </div>
+        
+        <div th:if="${gossos==null || gossos.empty}">
+            <!-- Mostrem missatge-->
+            No hi ha gossos a la llista.
+        </div>
+  
+        
+        <br/>
+        <!-- Incrustem l'element peu que trobem en layout/plantilla -->
+        <footer th:replace="~{layout/plantilla :: peu}" />
+
+    </body>
+</html>
